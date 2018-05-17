@@ -10,6 +10,7 @@ wss.broadcast = function broadcast(data) {
     if (client.readyState === WebSocket.OPEN) {
       client.send(data);
     }
+    console.log(data);
   });
 };
 

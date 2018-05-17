@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class App extends Component {
+class ChatBar extends Component {
   constructor(props) {
   super(props);
   this.state = {inputValue:""};
@@ -12,6 +12,13 @@ class App extends Component {
       this.props.onPressEnter(keyEvent.target.value)
       keyEvent.target.value = "";
     }
+    else {
+      this.change(keyEvent.target.value);
+    }
+  }
+
+  change(Value) {
+    this.setState({ Value });
   }
 
   render() {
