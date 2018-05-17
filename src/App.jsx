@@ -15,11 +15,14 @@ class App extends Component {
   }
   componentDidMount() { 
     //create connection
-    this.socket = new WebSocket('ws://localhost:8080');
+    this.socket = new WebSocket('ws://localhost:3001');
     //listen for messages
     this.socket.addEventListener('message', (messageEvent) => {
-      const messageReceived = (JSON.parse(event.data));
+      const messageReceived = JSON.parse(messageEvent.data);
+      // const messageContent = JSON.parse(messageReceived.text);
+      // console.log(messageReceived);
       const allMessages = this.state.messages.concat(messageReceived);
+      console.log(allMessages);
       this.setState({messages: allMessages});
     });
   }
