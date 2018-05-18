@@ -9,7 +9,8 @@ class App extends Component {
     this.myUser = this.myUser.bind(this);
     this.state = { 
       currentUser: {name: "Anonymous"}, 
-      messages: []  
+      messages: [],
+      userCounter: ""  
     };
     // this.focusNextField = this.focusNextField.bind(this);
 
@@ -18,19 +19,34 @@ class App extends Component {
   onPressEnter(text){
     this.socket.send(JSON.stringify({
       message: text, 
-      username:this.state.currentUser.name
+      username:this.state.currentUser.name,
+      messageType:"message"
     }));
   }
   componentDidMount() { 
-    //create connection
-    this.socket = new WebSocket('ws://localhost:3001');
+  //create connection
+  this.socket = new WebSocket('ws://localhost:3001');
+  this.socket.onopen = (event) => {
+    console.log("Connected to server");
+  };
     //listen for messages
     this.socket.addEventListener('message', (messageEvent) => {
       const messageReceived = JSON.parse(messageEvent.data);
-      const allMessages = this.state.messages.concat(messageReceived);
-      console.log(allMessages);
-      this.setState({messages: allMessages});
+
+      switch(messageReceived.messageType){
+        case "userCounter":
+          this.setState({
+            NumberOfuser: messageReceived.NumberOfuser
+          });
+        break;
+        default:
+          this.setState({
+            messages: this.state.messages.concat(messageReceived)
+        
+          });
+        }
     });
+
   }
 
   myUser(username){
@@ -52,6 +68,7 @@ class App extends Component {
       <div>
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
+        <a className="navbar-userCounter">{this.state.NumberOfuser} users online</a>
       </nav>
       <MessageList messages={this.state.messages}/>
       <ChatBar myuser={this.myUser} currentUser={this.state.currentUser.name}  onPressEnter={this.onPressEnter} />

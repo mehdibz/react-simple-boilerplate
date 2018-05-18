@@ -17,10 +17,8 @@ class MessageList extends Component {
 
     return (
       <main className="messages">
-	      <Message /> {message}
-	      <div className="message system">
-	        Anonymous1 changed their name to nomnom.
-	      </div>
+	    {message}
+
       </main>
     );
   }
