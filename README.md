@@ -1,11 +1,14 @@
-# Tinyapp Project
+
+#React Chatty App
+
+=====================
 
 Chatty App is a full stack web appliction built with NodeJs, Express and React that allows users to have a live chat with sending URLs of photos.
 
 ## Final Product
 
-!['Live chat'](react-simple-boilerplate/screen_shoot/Screenshot.png)
-!['Sending photo'](react-simple-boilerplate/screen_shoot/Screenshot-Photo uploading.png)
+!["Live chat"](https://github.com/mehdibz/react-simple-boilerplate/blob/master/screen_shoot/Screenshot.png)
+!["Sending photo"](https://github.com/mehdibz/react-simple-boilerplate/blob/master/screen_shoot/Screenshot-Photo%20uploading.png)
 
 ## Dependencies
 
@@ -16,9 +19,6 @@ Chatty App is a full stack web appliction built with NodeJs, Express and React t
     "ws": "5.1.1"
 
 ## Getting Started
-
-React Chatty App
-=====================
 
 Chat app built on react and sockets.
 
