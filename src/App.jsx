@@ -12,8 +12,6 @@ class App extends Component {
       messages: [],
       userCounter: ""  
     };
-    // this.focusNextField = this.focusNextField.bind(this);
-
   }
   //sending username & text to the server
   onPressEnter(text){
@@ -42,11 +40,9 @@ class App extends Component {
         default:
           this.setState({
             messages: this.state.messages.concat(messageReceived)
-        
           });
         }
     });
-
   }
 
   myUser(username){
@@ -59,19 +55,18 @@ class App extends Component {
         })
       );
     }
-    
     this.setState({currentUser: {name: username}});
   }
 
   render() {
     return (
       <div>
-      <nav className="navbar">
-        <a href="/" className="navbar-brand">Chatty</a>
-        <a className="navbar-userCounter">{this.state.NumberOfuser} users online</a>
-      </nav>
-      <MessageList messages={this.state.messages}/>
-      <ChatBar myuser={this.myUser} currentUser={this.state.currentUser.name}  onPressEnter={this.onPressEnter} />
+        <nav className="navbar">
+          <a href="/" className="navbar-brand">Chatty</a>
+          <a className="navbar-userCounter">{this.state.NumberOfuser} users online</a>
+        </nav>
+        <MessageList messages={this.state.messages}/>
+        <ChatBar myuser={this.myUser} currentUser={this.state.currentUser.name}  onPressEnter={this.onPressEnter} />
       </div>
     );
   }

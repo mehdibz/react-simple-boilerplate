@@ -1,6 +1,5 @@
 // server.js
 const express = require('express');
-// const SocketServer = require('ws').Server;
 const WebSocket = require('ws');
 const uuidv1 = require('uuid/v1');
 
@@ -27,9 +26,9 @@ wss.on('connection', (ws) => {
   });
   
   //reading messages
-   ws.on('message', function incoming(message) {
+   ws.on('message', function incomingMessages(message) {
     const clientMessage = JSON.parse(message);
-    
+    let color = colorGenerator();
     let msgObject = {};
     switch(clientMessage.messageType){
       case "message" :
@@ -37,7 +36,8 @@ wss.on('connection', (ws) => {
           id: uuidv1(),
           username: clientMessage.username,
           content: clientMessage.message,
-          messageType: clientMessage.messageType
+          messageType: clientMessage.messageType,
+          messageColor: color
         };
       break;
       case "notification":
@@ -65,6 +65,13 @@ wss.on('connection', (ws) => {
     console.log('Client disconnected');
   });
 });
+
+//Color generator
+function colorGenerator() {
+  var color = ['orange', 'pink', 'yellow', 'red', 'green', 'brown', 'blue'];
+  var value = Math.floor(Math.random() * color.length);
+  return color[value];
+}
 
 // function for boardcast to all clients
 wss.broadcast = function broadcast(data) {
