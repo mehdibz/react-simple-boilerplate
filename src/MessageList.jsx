@@ -7,12 +7,10 @@ class MessageList extends Component {
   }
 
   render() {
-	  const message = this.props.messages.map(array => {
-	    return (
-	      <div className="message" key={array.id}>
-	        <span className="message-username">{array.username}</span>
-	        <span className="message-content">{array.content}</span>
-	      </div>);
+	  const message = this.props.messages.map(singleMessage => {
+      
+      return (<Message key={singleMessage.id} singleMessage ={singleMessage} 
+                />)
 	  });
 
     return (

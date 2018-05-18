@@ -34,8 +34,15 @@ class ChatBar extends Component {
   render() {
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" onBlur={this.myUser}  value={this.state.value} onChange={this.handleChange} placeholder="Anonymous" />
-        <input className="chatbar-message" onKeyPress={this.sendingTxt} placeholder="Type a message and hit ENTER"/>
+        <input className="chatbar-username" 
+               onBlur={this.myUser}  
+               value={this.state.value} 
+               onChange={this.handleChange} 
+               placeholder="Anonymous" />
+               
+        <input className="chatbar-message" 
+               onKeyPress={this.sendingTxt} 
+               placeholder="Type a message and hit ENTER"/>
       </footer>
     );
   }

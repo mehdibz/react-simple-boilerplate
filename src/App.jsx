@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
-
+var msgColor="";
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.onPressEnter = this.onPressEnter.bind(this);
@@ -13,24 +14,28 @@ class App extends Component {
       userCounter: ""  
     };
   }
+
   //sending username & text to the server
   onPressEnter(text){
     this.socket.send(JSON.stringify({
       message: text, 
       username:this.state.currentUser.name,
-      messageType:"message"
+      messageType:"message",
+      messageColor: msgColor
     }));
   }
   componentDidMount() { 
-  //create connection
-  this.socket = new WebSocket('ws://localhost:3001');
-  this.socket.onopen = (event) => {
-    console.log("Connected to server");
-  };
+    //create connection
+    this.socket = new WebSocket('ws://localhost:3001');
+    this.socket.onopen = (event) => {
+      console.log("Connected to server");
+    };
     //listen for messages
     this.socket.addEventListener('message', (messageEvent) => {
       const messageReceived = JSON.parse(messageEvent.data);
-
+      if (msgColor === "") {
+        msgColor = colorGenerator();
+      }
       switch(messageReceived.messageType){
         case "userCounter":
           this.setState({
@@ -39,7 +44,8 @@ class App extends Component {
         break;
         default:
           this.setState({
-            messages: this.state.messages.concat(messageReceived)
+            messages: this.state.messages.concat(messageReceived),
+            messageColor: msgColor
           });
         }
     });
@@ -55,7 +61,10 @@ class App extends Component {
         })
       );
     }
-    this.setState({currentUser: {name: username}});
+    this.setState({
+      currentUser: {name: username},
+      messageColor: msgColor
+    });
   }
 
   render() {
@@ -70,5 +79,11 @@ class App extends Component {
       </div>
     );
   }
+}
+//Color generator
+function colorGenerator() {
+  var color = ['orange', 'pink', 'Olive', 'red', 'green', 'brown', 'blue'];
+  var value = Math.floor(Math.random() * color.length);
+  return color[value];
 }
 export default App;
